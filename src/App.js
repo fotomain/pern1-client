@@ -4,17 +4,17 @@ import "./App.css";
 
 import { useEffect, useState } from "react";
 
+import InputTodo from "./components/InputTodo";
+// import ListTodos from "./components/ListTodos";
+
 function App() {
-
-  const [state, setState] = useState(
-      // can read Cart from server {cartID:'wTOPiuPEKGUm5qvyzJKv0OKfUUomCYcD'}
-  )
-
-  return(
-    <div>
-        <div>App</div>
-
-    </div>
+  return (
+      <Fragment>
+        <div className="container">
+          <InputTodo />
+          {/*<ListTodos />*/}
+        </div>
+      </Fragment>
   );
 }
 
