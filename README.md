@@ -1,4 +1,4 @@
-# react-magento-graphql
+# pern1-client
 Connecting React Web application with Magento GraphQL API
 
 
