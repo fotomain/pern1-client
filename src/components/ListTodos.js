@@ -5,7 +5,7 @@ const updateDescription = async (params) => {
     try {
         const body = { description:params.description };
         const response = await fetch(
-            `http://localhost:5000/todos/${params.todo_id}`,
+            `http://localhost:4000/todos/${params.todo_id}`,
             {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -17,7 +17,17 @@ const updateDescription = async (params) => {
     }
 };
 
-const ListTodos = () => {
+const deleteTodo = async id => {
+    try {
+        const deleteTodo = await fetch(`http://localhost:4000/todos/${id}`, {
+            method: "DELETE"
+        });
+    } catch (err) {
+        console.error(err.message);
+    }
+};
+
+const ListTodos = (props) => {
 
     const [todos, setTodos] = useState([]);
     const [currentRowData, setCurrentRowData] = useState({
@@ -27,7 +37,7 @@ const ListTodos = () => {
 
     const getTodos = async () => {
         try {
-            const response = await fetch("http://localhost:5000/todos");
+            const response = await fetch("http://localhost:4000/todos");
             const jsonData = await response.json();
 
             setTodos(jsonData);
@@ -39,7 +49,7 @@ const ListTodos = () => {
 
     useEffect(() => {
         getTodos();
-    }, []);
+    }, [props.moment]);
 
 
     useEffect(() => {
@@ -70,7 +80,7 @@ const ListTodos = () => {
                 <tbody>
                 {todos.map((todo) => (
                     <tr key={todo.todo_id}>
-                        <td>{todo.description}</td>
+                        <td style={{textAlign:'start',verticalAlign:'middle'}}>{todo.description}</td>
                         <td>
                             <div className="modal-body">
                                 <input
@@ -88,8 +98,21 @@ const ListTodos = () => {
                                 />
                             </div>
                         </td>
+                        <td>
+                            <button
+                                className="btn btn-danger"
+                                onClick={() =>
+                                    deleteTodo(todo.todo_id)
+                                        .then(()=>{
+                                            getTodos()
+                                        })
+                            }
+                            >
+                                Delete
+                            </button>
+                        </td>
                     </tr>
-                    ))}
+                ))}
                 </tbody>
 
             </table>

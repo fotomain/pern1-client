@@ -8,11 +8,26 @@ import InputTodo from "./components/InputTodo";
 import ListTodos from "./components/ListTodos";
 
 function App() {
-  return (
+
+    const [state, setState] = useState({
+        moment:0
+    });
+
+    useEffect(() => {
+
+        console.log("=== moment",state.moment)
+
+        return () => {
+
+        };
+    }, [state.moment]);
+
+
+    return (
       <Fragment>
         <div className="container">
-          <InputTodo />
-          <ListTodos />
+          <InputTodo callAfterAdd={()=>{ setState({moment:Date.now()})}}/>
+          <ListTodos moment={state.moment} />
         </div>
       </Fragment>
   );
